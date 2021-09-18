@@ -3,7 +3,11 @@ import Card from "../UI/Card";
 import cssStyles from "./UsersList.module.css";
 const UsersList = (props) => {
   if (props.users.length === 0) {
-    return <Card className={cssStyles.users}>No users.</Card>;
+    return (
+      <Card className={cssStyles.users}>
+        <ul>No Users.</ul>
+      </Card>
+    );
   }
   return (
     <Card className={cssStyles.users}>

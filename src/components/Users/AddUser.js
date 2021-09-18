@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import Wrapper from "../Helper/Wrapper";
 import Button from "../UI/Button";
 
 import Card from "../UI/Card";
@@ -6,6 +7,9 @@ import ErrorModel from "../UI/ErrorModel";
 import cssStyles from "./AddUser.module.css";
 
 const AddUser = (props) => {
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredUserAge, setEnteredUserAge] = useState("");
   const [error, setError] = useState();
@@ -36,7 +40,7 @@ const AddUser = (props) => {
       return;
     }
 
-    console.log(userInput);
+    console.log(nameInputRef.current.value, ageInputRef);
     props.onAddUserHandler(userInput);
     setEnteredUserName("");
     setEnteredUserAge("");
@@ -55,7 +59,7 @@ const AddUser = (props) => {
   };
 
   return (
-    <div>
+    <Wrapper>
       {error && (
         <ErrorModel
           title={error.title}
@@ -71,6 +75,7 @@ const AddUser = (props) => {
             type="text"
             onChange={usernameChangeHandler}
             value={enteredUserName}
+            ref={nameInputRef}
           />
           <label htmlFor="age">Age (Years)</label>
           <input
@@ -78,11 +83,12 @@ const AddUser = (props) => {
             type="number"
             onChange={ageChangeHandler}
             value={enteredUserAge}
+            ref={ageInputRef}
           />
           <Button buttonType="submit"> Add User </Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
 
